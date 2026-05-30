@@ -1,7 +1,3 @@
-در زیر **مستندات Software Requirement Specification (SRS)** برای محصول «سیستم نگهداری پیش‌بینانه و تشخیص آنومالی رآکتور هسته‌ای مبتنی بر داده‌های سنتتیک و یادگیری ماشین» بر اساس استاندارد IEEE 830 ارائه شده است.
-
----
-
 # Software Requirements Specification (SRS)
 
 ## برای سیستم PdM-Nuclear (Predictive Maintenance for Nuclear Reactor)
