@@ -1,0 +1,22 @@
+[project]
+name = "pdm-nuclear-reactor"
+version = "0.1.0"
+description = "Predictive Maintenance for Nuclear Reactor - Anomaly Detection System"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.pytest.ini_options]
+testpaths = ["backend/tests"]
+asyncio_mode = "auto"
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+"backend/tests/*" = ["S101"]

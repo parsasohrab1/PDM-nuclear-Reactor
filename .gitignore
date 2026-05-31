@@ -1,0 +1,54 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Node
+node_modules/
+frontend/dist/
+frontend/.vite/
+*.log
+npm-debug.log*
+
+# Environment & secrets
+.env
+.env.local
+*.pem
+*.key
+
+# Data & models (generated at runtime)
+data/raw/*.csv
+data/raw/*.parquet
+data/models/*.h5
+data/models/*.onnx
+data/backups/
+!data/raw/.gitkeep
+!data/models/.gitkeep
+!data/backups/.gitkeep
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Docker volumes
+influxdb-data/
+
+# Generated CSV from root data.py
+nuclear_reactor_synthetic_data.csv

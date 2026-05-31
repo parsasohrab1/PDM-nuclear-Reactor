@@ -1,0 +1,62 @@
+services:
+  influxdb:
+    image: influxdb:2.7
+    container_name: pdm-influxdb
+    ports:
+      - "8086:8086"
+    environment:
+      DOCKER_INFLUXDB_INIT_MODE: setup
+      DOCKER_INFLUXDB_INIT_USERNAME: admin
+      DOCKER_INFLUXDB_INIT_PASSWORD: pdm-nuclear-admin
+      DOCKER_INFLUXDB_INIT_ORG: pdm-nuclear
+      DOCKER_INFLUXDB_INIT_BUCKET: sensor_data
+      DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: pdm-nuclear-dev-token
+      DOCKER_INFLUXDB_INIT_RETENTION: 90d
+    volumes:
+      - influxdb-data:/var/lib/influxdb2
+    healthcheck:
+      test: ["CMD", "influx", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    container_name: pdm-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      INFLUXDB_URL: http://influxdb:8086
+    volumes:
+      - ./backend:/app/backend
+      - ./data:/app/data
+    depends_on:
+      influxdb:
+        condition: service_healthy
+    restart: unless-stopped
+    profiles:
+      - full
+
+  frontend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.frontend
+    container_name: pdm-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app/frontend
+      - /app/frontend/node_modules
+    depends_on:
+      - backend
+    restart: unless-stopped
+    profiles:
+      - full
+
+volumes:
+  influxdb-data:
